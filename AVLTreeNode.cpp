@@ -18,7 +18,7 @@ AVLTreeNode::depth() const
 std::ostream&
 AVLTreeNode::print(std::ostream &toStream) const
 {
-    toStream << _data;
+    toStream << _name<<" "<<_phone;
 
     return toStream;
 }

@@ -2,7 +2,7 @@
 
 using namespace std;
 
-AVLTreeNode* findHelper(AVLTreeNode *inSubTree, int valToFind)
+AVLTreeNode* findHelper(AVLTreeNode *inSubTree, const std::string& valToFind)
 {
     if (!inSubTree)
         return nullptr;
@@ -18,7 +18,7 @@ AVLTreeNode* findHelper(AVLTreeNode *inSubTree, int valToFind)
 }
 
 AVLTreeNode*
-AVLTree:: find(int valToFind) const
+AVLTree:: find(string& valToFind) const
 {
     return findHelper(_root, valToFind);
 }
@@ -96,17 +96,17 @@ AVLTreeNode* doubleWithRightChild(AVLTreeNode *k3)
 
 // intoSubTree -- the subtree into which we want to insert
 // returns : updated version of subtree
-AVLTreeNode* insertHelper(AVLTreeNode *intoSubTree, int valToAdd)
+AVLTreeNode* insertHelper(AVLTreeNode *intoSubTree,const string& name, const string& phone)
 {
     if (intoSubTree == nullptr) // empty tree!
     {
-        AVLTreeNode *newTree = new AVLTreeNode(valToAdd);
+        AVLTreeNode *newTree = new AVLTreeNode(name, phone);
         return newTree;
     }
-    if (valToAdd < intoSubTree->data() )
+    if (name < intoSubTree->data() )
     {
         // want to insert in left subtree
-        AVLTreeNode *newSubTree = insertHelper(intoSubTree->left(), valToAdd);
+        AVLTreeNode *newSubTree = insertHelper(intoSubTree->left(), name, phone);
         intoSubTree->left() = newSubTree;
         newSubTree->parent() = intoSubTree;
 
@@ -118,7 +118,7 @@ AVLTreeNode* insertHelper(AVLTreeNode *intoSubTree, int valToAdd)
         if (leftHeight-rightHeight==2) 
 	{
 	  // is this a left-left imbalance?
-	  if (valToAdd < intoSubTree->left()->data() )
+	  if (name < intoSubTree->left()->data() )
 	  {
 	      intoSubTree=rotateRight(intoSubTree);
 	  }
@@ -129,10 +129,10 @@ AVLTreeNode* insertHelper(AVLTreeNode *intoSubTree, int valToAdd)
 	  }
 	}
     }
-    else if (valToAdd > intoSubTree->data() )
+    else if (name > intoSubTree->data() )
     {
         // want to insert into right subtree
-        AVLTreeNode *newSubTree = insertHelper(intoSubTree->right(), valToAdd);
+        AVLTreeNode *newSubTree = insertHelper(intoSubTree->right(), name, phone);
         intoSubTree->right() = newSubTree;
         newSubTree->parent() = intoSubTree;
 
@@ -144,7 +144,7 @@ AVLTreeNode* insertHelper(AVLTreeNode *intoSubTree, int valToAdd)
         if (rightHeight-leftHeight==2) 
 	{
 	  // is this a right-right imbalance?
-	  if (valToAdd >  intoSubTree->right()->data() )
+	  if (name >  intoSubTree->right()->data() )
 	    {
 	      intoSubTree=rotateLeft(intoSubTree);
 	    }
@@ -169,13 +169,13 @@ AVLTreeNode* insertHelper(AVLTreeNode *intoSubTree, int valToAdd)
 
 
 void
-AVLTree::insert(int newVal)
+AVLTree::insert(const string& name, const string& phone)
 {
-    _root=insertHelper(_root, newVal);
+    _root=insertHelper(_root, name, phone);
 }
 
 AVLTreeNode*
-removeHelper(int existingVal, AVLTreeNode *fromSubTree)
+removeHelper(const string& existingVal, AVLTreeNode *fromSubTree)
 {
   // no subtree? no need to remove anything. 
   if (!fromSubTree)
@@ -208,29 +208,22 @@ removeHelper(int existingVal, AVLTreeNode *fromSubTree)
 	    }
 
           // back up largest value in left subtree. 
-	  int valueToMove = toDel->data();
+	  string nameToMove = toDel->data();
+    string phoneToMove = toDel->phoneNumber();
 
           // remove node containing largest value in subtree ...
-	  fromSubTree->left()=removeHelper(valueToMove, fromSubTree->left());
+	  fromSubTree->left()=removeHelper(nameToMove, fromSubTree->left());
           if (fromSubTree->left()) 
-            fromSubTree->left()->parent() = fromSubTree;
-          // ... but place its value in the node we really want to "remove"
-	  fromSubTree->data() = valueToMove;
+            fromSubTree->data() = nameToMove;
+            fromSubTree->phoneNumber() = phoneToMove;
 	}
       else // 1 child
 	{
-	  if (fromSubTree->left() ) // no right subtree since only 1 child
-          {
-            fromSubTree->left()->parent() = fromSubTree->parent();
-	    fromSubTree = fromSubTree->left();
-          }
-	  else // only have right child
-          {
-            fromSubTree->right()->parent() = fromSubTree->parent();
-	    fromSubTree = fromSubTree->right();
-          }
-	}
-      
+	  AVLTreeNode* child = fromSubTree->left() ? fromSubTree->left() : fromSubTree->right();
+    child->parent() = fromSubTree->parent();
+    delete fromSubTree;
+    fromSubTree = child;
+  }
     }
 
   // no tree left? return NULL
@@ -285,9 +278,9 @@ removeHelper(int existingVal, AVLTreeNode *fromSubTree)
 
 
 void
-AVLTree::remove(int existingVal)
+AVLTree::remove(const string& existingVal)
 {
-    AVLTreeNode *toDel = find(existingVal);
+    AVLTreeNode *toDel = find(const_cast<string&>(existingVal));
     if (!toDel)
     {
         cerr << "Sorry, \"" << existingVal << "\" is not in tree!"

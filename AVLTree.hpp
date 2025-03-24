@@ -12,10 +12,14 @@ private:
 public:
     AVLTree() : _root(nullptr) {}
 
-    AVLTreeNode* find(int valToFind) const;
+    AVLTreeNode* find(std::string& valToFind) const;
 
-    void insert(int newVal);
-    void remove(int existingVal);
+    void insert(const string& name, const string& phone);
+    void remove(const string& name);
+
+    string getPhone(const string& name)const;
+    void updatePhone(const string& name, const string& newPhone);
+    int getHeight() const;
 
     std::ostream& print(std::ostream &os) const;
 };
