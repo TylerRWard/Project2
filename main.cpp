@@ -23,13 +23,29 @@ void processAVL(const string& filename) {
     cout << "Tree Height: " << tree.getHeight() << endl;
 
     char command;
-    while (cin >> command && command != 'q') {
-        if (command == 'g') {
+    while (true) {
+        // Prompt user for input
+        cout << "Enter command (g, u, q): ";
+        cin >> command;
+        cin.ignore(10000, '\n');  // Clear any remaining input (e.g., newline)
+
+        if (command == 'q') {
+            break;
+        } else if (command == 'g') {
+            cout << "Enter name to get phone: ";
             cin >> name;
-            cout << tree.getPhone(name) << endl;
+            string phone = tree.getPhone(name);
+            if (phone.empty()) {
+                cout << "Name not found." << endl;
+            } else {
+                cout << phone << endl;
+            }
         } else if (command == 'u') {
+            cout << "Enter name and new phone: ";
             cin >> name >> phone;
             tree.updatePhone(name, phone);
+        } else {
+            cout << "Invalid command. Use 'g', 'u', or 'q'." << endl;
         }
     }
 }
@@ -52,13 +68,29 @@ void processHash(const string& filename, int tableSize) {
     cout << "Max Chain Length: " << table.getMaxChainLength() << endl;
 
     char command;
-    while (cin >> command && command != 'q') {
-        if (command == 'g') {
+    while (true) {
+        // Prompt user for input
+        cout << "Enter command (g, u, q): ";
+        cin >> command;
+        cin.ignore(10000, '\n');  // Clear any remaining input (e.g., newline)
+
+        if (command == 'q') {
+            break;
+        } else if (command == 'g') {
+            cout << "Enter name to get phone: ";
             cin >> name;
-            cout << table.getPhone(name) << endl;
+            string phone = table.getPhone(name);
+            if (phone.empty()) {
+                cout << "Name not found." << endl;
+            } else {
+                cout << phone << endl;
+            }
         } else if (command == 'u') {
+            cout << "Enter name and new phone: ";
             cin >> name >> phone;
             table.updatePhone(name, phone);
+        } else {
+            cout << "Invalid command. Use 'g', 'u', or 'q'." << endl;
         }
     }
 }

@@ -24,9 +24,6 @@ void HashTable::insert(const std::string& name, const std::string& phone){
     int index = hashFunction(name);
     table[index].emplace_back(name, phone);
 }
-
-
-
     std::string HashTable::getPhone(const std::string& name) const{
         int index = hashFunction(name);
         for (const auto& node: table[index]){
