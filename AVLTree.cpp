@@ -1,5 +1,6 @@
 #include "AVLTree.hpp"
-
+#include <algorithm>
+#include <iostream>
 using namespace std;
 
 AVLTreeNode* findHelper(AVLTreeNode *inSubTree, const std::string& valToFind)
@@ -269,8 +270,7 @@ removeHelper(const string& existingVal, AVLTreeNode *fromSubTree)
     }
 
   // might have changed heights of children, so update subtree's height
-  fromSubTree->height() = 1 + max( getHeight(fromSubTree->left()) ,
-				   getHeight(fromSubTree->right()) );
+  fromSubTree->height() = 1 + max(getHeight(fromSubTree->left()), getHeight(fromSubTree->right()));
   
   return fromSubTree;
 }
@@ -290,6 +290,20 @@ AVLTree::remove(const string& existingVal)
     _root=removeHelper(existingVal, _root);
 }
 
+std::string AVLTree::getPhone(const std::string& name) const{
+  AVLTreeNode* node = findHelper(_root, name);
+  return node ? node -> phoneNumber() : "";
+}
+
+void AVLTree::updatePhone(const std::string& name, const std::string& newPhone){
+  AVLTreeNode* node = findHelper(_root, name);
+  if(node){
+    node->phoneNumber() = newPhone;
+  }
+}
+int AVLTree::getHeight()const {
+  return ::getHeight(_root);
+}
 
 void inOrderPrint(AVLTreeNode *currNode, ostream &os)
 {
@@ -316,10 +330,3 @@ AVLTree::print(std::ostream &someStream) const
     inOrderPrint(_root, someStream);
     return someStream;
 }
-
-
-
-
-
-
-

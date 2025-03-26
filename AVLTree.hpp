@@ -2,11 +2,10 @@
 #define _AVL_TREE_HPP_
 
 #include "AVLTreeNode.hpp"
-
 #include <iostream>
+#include <string>
 
-class AVLTree
-{
+class AVLTree{
 private:
     AVLTreeNode *_root;
 public:
@@ -14,11 +13,10 @@ public:
 
     AVLTreeNode* find(std::string& valToFind) const;
 
-    void insert(const string& name, const string& phone);
-    void remove(const string& name);
-
-    string getPhone(const string& name)const;
-    void updatePhone(const string& name, const string& newPhone);
+    void insert(const std::string& name, const std::string& phone);
+    void remove(const std::string& name);
+    std::string getPhone(const std::string& name)const;
+    void updatePhone(const std::string& name, const std::string& newPhone);
     int getHeight() const;
 
     std::ostream& print(std::ostream &os) const;

@@ -1,26 +1,27 @@
 #ifndef HASH_TABLE_HPP
 #define HASH_TABLE_HPP
 
-using namespace std;
+#include <vector>
 #include <list>
+#include <string>
 
 struct HashNode {
-    string name;
-    string phone;
-    HashNode(const string& n, const string& p) : name(n), phone(p) {}
+    std::string name;
+    std::string phone;
+    HashNode(const std::string& n, const std::string& p) : name(n), phone(p) {}
 };
 
 class HashTable {
 private:
-    vector<list<HashNode>> table;
+    std::vector<std::list<HashNode>> table;
     int size;
-    int hashFunction(const string& name) const;
+    int hashFunction(const std::string& name) const;
 
 public:
     HashTable(int tableSize);
-    void insert(const string& name, const string& phone);
-    string getPhone(const string& name) const;
-    void updatePhone(const string& name, const string& newPhone);
+    void insert(const std::string& name, const std::string& phone);
+    std::string getPhone(const std::string& name) const;
+    void updatePhone(const std::string& name, const std::string& newPhone);
     int getMaxChainLength() const;
 };
 
