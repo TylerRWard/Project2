@@ -1,3 +1,8 @@
+/*
+* @author Tyler Ward
+* @version March 26th 2025
+*/
+
 #include <iostream>
 #include <fstream>
 #include "AVLTree.hpp"
