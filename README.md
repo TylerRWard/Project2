@@ -9,11 +9,11 @@ CSC36000 Programming Project #2, focusing on implementing and comparing AVL tree
 
 - **Name**: Tyler Ward  
 - **Date**: March 26, 2025  
-- **Platform**: macOS (Developed on a MacBook Air)  
-- **Course**: CSC36000 - Data Structures and Algorithms  
-- **Due Date**: Thursday, March 27, 2025, 11:59 PM  
+- **Platform**: macOS 
 
 ---
+## Summary 
+I started with the avl tree. That wasn't to bad I just used the github code and changed the ints to strings with a few minor changes. Then I went on to the hashing table. That was fairly straightward I think. The main function had a few issues but eventually got it. I added promps to make it more intuitive because I was getting confused.
 
 ## Compilation Instructions
 
