@@ -12,8 +12,11 @@ CSC36000 Programming Project #2, focusing on implementing and comparing AVL tree
 - **Platform**: macOS 
 
 ---
+
 ## Summary 
 I started with the avl tree. That wasn't to bad I just used the github code and changed the ints to strings with a few minor changes. Then I went on to the hashing table. That was fairly straightward I think. The main function had a few issues but eventually got it. I added promps to make it more intuitive because I was getting confused.
+
+---
 
 ## Compilation Instructions
 

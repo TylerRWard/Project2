@@ -19,7 +19,7 @@ AVLTreeNode* findHelper(AVLTreeNode *inSubTree, const std::string& valToFind)
 }
 
 AVLTreeNode*
-AVLTree:: find(string& valToFind) const
+AVLTree::find(string& valToFind) const
 {
     return findHelper(_root, valToFind);
 }
